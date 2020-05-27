@@ -27,6 +27,7 @@ def region_choices(answers):
     return [x['RegionName'] for x in r['Regions'] if
             x['RegionName'].startswith(country_code) and x['RegionName'] != answers.get('primary_region')]
 
+
 aws_region_setup = [
     {
         'type': 'list',

@@ -10,6 +10,7 @@ import sys
 import re
 import requests
 
+
 def check_aws_creds():
     c = boto3.client('sts')
     response = c.get_caller_identity()
@@ -52,13 +53,15 @@ def snake_to_title(s):
     s = s.replace("cidr", "CIDR")
     return ''.join([i.title() if i.islower() else i for i in s.split("_")])
 
+
 def stack_outputs_to_dict(outputs):
     # Outputs from Cloudforamtion describe_stacks response @ response['Stacks'][0]['Outputs']
-    return {title_to_snake(o['OutputKey']):o['OutputValue'] for o in outputs}
+    return {title_to_snake(o['OutputKey']): o['OutputValue'] for o in outputs}
 
 
 def vpc_template_params_builder(region_config):
     return [{'ParameterKey': snake_to_title(k), 'ParameterValue': v} for k, v in region_config.items()]
+
 
 def get_template_body():
     template_url = "https://raw.githubusercontent.com/udacity/nd063-c2-design-for-availability-resilience-reliability-replacement-project-starter-template/master/cloudformation/vpc.yaml"
@@ -66,6 +69,7 @@ def get_template_body():
     failure_string = f"Unable to get template body from {template_url}"
     assert r.status_code == 200, failure_string
     return r.text
+
 
 def create_vpc_from_template(region_config):
     region = region_config.pop('region')
@@ -87,7 +91,8 @@ def create_vpc_from_template(region_config):
     # TODO add assertion for stack name exact match
     outputs = stack_outputs_to_dict(response['Stacks'][0]['Outputs'])
     print(f"Creating Screenshot of vpc creation")
-    screenshot.create_vpc_screenshot(vpc_id=outputs['vpc'], region=region, file_name=f"{region_config['vpc_name'].lower()}_Vpc.png")
+    screenshot.create_vpc_screenshot(vpc_id=outputs['vpc'], region=region,
+                                     file_name=f"{region_config['vpc_name'].lower()}_Vpc.png")
     print("done")
 
 
@@ -104,6 +109,7 @@ def main():
 
     create_vpc_from_template(config['pri'])
     create_vpc_from_template(config['sec'])
+
 
 if __name__ == "__main__":
     main()

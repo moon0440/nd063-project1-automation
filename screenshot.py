@@ -67,19 +67,21 @@ def get_with_login(url, file_name="screenshot.png", user=None, password=None):
 def create(url, file_name="screenshot.png"):
     user, password = create_selenium_user()
     try:
-        get_with_login(url,file_name=file_name, user=user.name, password=password)
+        get_with_login(url, file_name=file_name, user=user.name, password=password)
     finally:
         # Insures at at least and attempt to remove the user account
         remove_selenium_user(user)
 
+
 def vpc_console_url(vpc_id, region):
     return f"https://console.aws.amazon.com/vpc/home?region={region}#vpcs:search={vpc_id}"
+
 
 def create_vpc_screenshot(vpc_id, region, file_name):
     url = vpc_console_url(vpc_id, region)
     create(url, file_name)
 
+
 if __name__ == "__main__":
     url = "https://console.aws.amazon.com/vpc/home?region=us-east-1#vpcs:search=vpc-050fe8a080ce80090;sort=VpcId"
     create(url=url, file_name="primary_Vpc.png")
-
