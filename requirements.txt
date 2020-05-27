@@ -1,0 +1,8 @@
+boto3>=1.13.16
+PyInquirer>=1.0.3
+requests>=2.23.0
+selenium>=3.141.0
+webdriver-manager>=2.5.2
+
+#Flask>=1.1.2
+#Mako>=1.1.2
