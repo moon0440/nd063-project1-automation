@@ -9,6 +9,9 @@ Automated implementation.
 
 ## Overview
 [Udacity Nanodegree nd063 Project1](https://github.com/udacity/nd063-c2-design-for-availability-resilience-reliability-replacement-project-starter-template)
+
+Each part from the above instructions will be broken down into code that will run locally. After each part is created and working sequencally then implement a pipeline to create/reapply when new code is committed(w/hooks)
+
 ### Part 1
 ![Part1](docs/img/PartOneAutomation.svg)
 ### Part 2
